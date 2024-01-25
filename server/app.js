@@ -23,7 +23,7 @@ const corsOptions = {
 }
 // middlewares
 
-// app.options('*', cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -37,7 +37,7 @@ app.post('/login', (req, res) => {
     try {
         const { email, password } = req.body;
         if (email === 'someone@gmail.com' && password === 'Pa$$w0rd!') {
-            res.cookie('token', '123456789', { httpOnly: true, sameSite: 'none', secure: true });
+            res.cookie('token', '123456789', { httpOnly: true, sameSite: 'lax', secure: false, maxAge: 1000 * 60 * 60 * 24 });
             res.status(200).json({ success: true, message: 'logged in' });
         } else {
             res.status(401).json({ success: false, message: 'invalid credentials' });
