@@ -1,7 +1,32 @@
+'use client'
+
+import axios from "@/lib/axios";
+
+
+
 
 const Form = () => {
+    const login = async (e: any) => {
+        e.preventDefault()
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        try {
+            /*  const res = await fetch('http://localhost:5000/login', {
+                 method: 'POST',
+                 headers: { 'Content-Type': 'application/json' },
+                 body: JSON.stringify({ email, password })
+             }) */
+            const res = await axios.post(`/login`, { email, password })
+            console.log(res.data)
+
+
+
+        } catch (err: any) {
+            console.log(err.message)
+        }
+    }
     return (
-        <form className="bg-gray-200/10 p-8 rounded-xl">
+        <form onSubmit={login} className="bg-gray-200/10 p-8 rounded-xl">
             <div className="flex flex-col space-y-3 mt-2">
                 <label htmlFor="email">Email</label>
                 <input
