@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Toaster } from 'sonner';
 
 import "./globals.css";
 
@@ -11,6 +12,7 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
   return (
     <html lang="en">
       <body>{children}</body>
+      <Toaster closeButton theme="dark" />
     </html>
   );
 }

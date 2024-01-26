@@ -2,13 +2,17 @@
 const express = require('express');
 const cors = require('cors')
 const cookieParser = require('cookie-parser');
-const { corsOptions } = require('./lib/utils');
+
 
 const app = express();
 
 // middlewares
 require('dotenv').config()
 // app.options('*', cors(corsOptions));
+const corsOptions = {
+    origin: ['http://localhost:3000', process.env.CLIENT_URI, process.env.CLIENT_URI_PROD],
+    credentials: true,
+}
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -21,7 +25,7 @@ app.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
         if (email === 'someone@gmail.com' && password === 'Pa$$w0rd!') {
-            res.cookie('token', '123456789', {
+            res.cookie('token', Math.random() * 100, {
                 domain: 'localhost',
                 path: '/',
                 maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days

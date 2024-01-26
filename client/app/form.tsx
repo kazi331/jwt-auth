@@ -2,6 +2,7 @@
 
 import axios from "@/lib/axios";
 import { useState } from "react";
+import { toast } from "sonner";
 
 
 
@@ -14,15 +15,9 @@ const Form = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         try {
-            /* const res = await fetch('http://localhost:5000/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
-            })
-            const data = await res.json();
-            console.log(data) */
             const res = await axios.post(`/login`, { email, password })
             console.log(res.data)
+            if (res.data.success) toast.success(res.data.message || 'Login successful')
             setLoading(false)
         } catch (err: any) {
             setLoading(false)
