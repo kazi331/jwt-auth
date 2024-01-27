@@ -1,6 +1,6 @@
 'use client'
 
-import axios from "@/lib/axios";
+import { serverURI } from "@/lib/utils";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -15,9 +15,20 @@ const Form = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         try {
-            const res = await axios.post(`/login`, { email, password })
+            /* const res = await axios.post(`/login`, { email, password })
             console.log(res.data)
-            if (res.data.success) toast.success(res.data.message || 'Login successful')
+            if (res.data.success) toast.success(res.data.message || 'Login successful') */
+            const res = await fetch(`${serverURI}/login`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+
+            })
+            const data = await res.json()
+            if (data.success) toast.success(data.message || 'Login successful')
             setLoading(false)
         } catch (err: any) {
             setLoading(false)
