@@ -10,7 +10,7 @@ const app = express();
 require('dotenv').config()
 // app.options('*', cors(corsOptions));
 const corsOptions = {
-    origin: ['http://localhost:3000', process.env.CLIENT_URI, process.env.CLIENT_URI_PROD],
+    origin: ['http://localhost:3000', 'https://jwt-auth2.vercel.app'],
     credentials: true,
 }
 app.use(cors(corsOptions));
@@ -21,14 +21,15 @@ app.use(cookieParser())
 // cookieOptions
 const cookieOptions = {
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-    httpOnly: process.env.COOKIE_HTTPONLY,
-    secure: process.env.COOKIE_SECURE,
-    sameSite: process.env.COOKIE_SAMESITE,
-    domain: process.env.CLIENT_URI_PROD,
-    path: '/login'
-
+    httpOnly: process.env.NODE_ENV === 'development' ? false : true,
+    secure: process.env.NODE_ENV === 'development' ? false : true,
+    sameSite: 'none',
+    // domain: process.env.NODE_ENV === 'development' ? process.env.CLIENT_URI : process.env.CLIENT_URI_PROD,
 }
-
+app.get('/cookie-options', (req, res) => {
+    console.log(cookieOptions);
+    res.status(200).json({ cookieOptions })
+})
 // routes
 app.get('/', (req, res) => {
     res.send('Server is up & running!')
