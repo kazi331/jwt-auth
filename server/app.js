@@ -21,13 +21,13 @@ app.use(cookieParser())
 // cookieOptions
 const cookieOptions = {
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-    httpOnly: process.env.NODE_ENV === 'development' ? false : true,
-    secure: process.env.NODE_ENV === 'development' ? false : true,
+    // httpOnly: process.env.NODE_ENV === 'development' ? false : true,
+    // secure: process.env.NODE_ENV === 'development' ? false : true,
     sameSite: 'none',
     // domain: process.env.NODE_ENV === 'development' ? process.env.CLIENT_URI : process.env.CLIENT_URI_PROD,
+    // path: '/login'
 }
 app.get('/cookie-options', (req, res) => {
-    console.log(cookieOptions);
     res.status(200).json({ cookieOptions })
 })
 // routes
