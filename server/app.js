@@ -18,28 +18,35 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser())
 
-// enable pre-flight for all routes
+// cookieOptions
+const cookieOptions = {
+    maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+    httpOnly: process.env.COOKIE_HTTPONLY,
+    secure: process.env.COOKIE_SECURE,
+    sameSite: process.env.COOKIE_SAMESITE,
+    domain: process.env.CLIENT_URI_PROD,
+    path: '/login'
+
+}
 
 // routes
+app.get('/', (req, res) => {
+    res.send('Server is up & running!')
+}
+);
 app.post('/login', async (req, res) => {
     try {
-        const { email, password } = req.body;
-        if (email === 'someone@gmail.com' && password === 'Pa$$w0rd!') {
-            res.cookie('token', Math.random() * 100, {
-                domain: 'localhost',
-                path: '/',
-                maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-            });
-            res.status(200).json({ success: true, message: 'logged in' });
-        } else {
-            res.status(401).json({ success: false, message: 'invalid credentials' });
-        }
+        res.cookie('token', 'somerandomtoken', cookieOptions);
+        res.status(200).json({ success: true, message: 'Logged in with dummy credentials!' });
     } catch (err) {
         res.status(500).json({ success: false, message: 'server error' });
     }
 })
 
+
+
 app.get('/logout', (req, res) => {
+    res.clearCookie('token');
     res.send({ success: true, message: 'Logged out' })
 });
 

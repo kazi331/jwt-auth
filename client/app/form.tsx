@@ -25,7 +25,7 @@ const Form = () => {
         }
     }
     return (
-        <form onSubmit={login} className="bg-gray-900/80 backdrop-blur p-8 rounded-xl mx-auto w-full md:max-w-lg m-1">
+        <form onSubmit={login} className="bg-gray-900/80 backdrop-blur p-8 rounded-xl mx-auto w-full md:max-w-lg m-1 mt-24 sm:mt-0">
             <div className="flex flex-col space-y-3 mt-2">
                 <label htmlFor="email">Email</label>
                 <input

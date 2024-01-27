@@ -11,8 +11,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
-      <Toaster closeButton theme="dark" />
+      <body>
+        {children}
+        <Toaster closeButton theme="dark" position="top-center" />
+      </body>
     </html>
   );
 }
