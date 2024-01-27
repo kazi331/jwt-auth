@@ -22,7 +22,7 @@ app.use(cookieParser())
 const cookieOptions = {
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
     // httpOnly: process.env.NODE_ENV === 'development' ? false : true,
-    sameSite: 'none',
+    // sameSite: 'none',
     secure: process.env.NODE_ENV === 'development' ? false : true,
     // domain: process.env.NODE_ENV === 'development' ? process.env.CLIENT_URI : process.env.CLIENT_URI_PROD,
     // path: '/login'
