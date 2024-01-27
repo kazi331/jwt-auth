@@ -49,7 +49,9 @@ const Form = () => {
 
                 />
             </div>
-            <button disabled={loading} type="submit" className="w-full bg-sky-500 text-gray-200 py-2 mt-4 rounded-lg active:scale-95 transition-transform disabled:bg-sky-400 disabled:cursor-not-allowed">Login</button>
+            <button disabled={loading} type="submit" className="w-full bg-sky-500 text-gray-200 py-2 mt-4 rounded-lg active:scale-95 transition-transform disabled:bg-sky-400 disabled:cursor-not-allowed">
+                {loading ? "Processing..." : "Login"}
+            </button>
         </form>
     )
 }
